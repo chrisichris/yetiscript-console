@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "A YetiScript console within the Web Inspector.",
 	"devtools_page": "yeti-devtools.html",
-    "icons": { "128": "128.png" },
+    "icons": { "128": "yeti-logo-128.png" },
 	"minimum_chrome_version" : "26",
 	"permissions": [
 		"http://localhost/",
