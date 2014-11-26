@@ -2,12 +2,17 @@
 	"name": "YetiScriptConsole",
 	"version": "0.0.1",
 	"description": "A YetiScript console within the Web Inspector.",
-	"devtools_page": "yeti.html",
+	"background" : {
+		"persistent" : false,
+		"scripts": ["yeti-background.js"]
+	},
+	"devtools_page": "yeti-devtools.html",
     "icons": { "128": "128.png" },
-	"minimum_chrome_version" : "18",
+	"minimum_chrome_version" : "26",
 	"permissions": [
+		"http://localhost/",
 		"tabs",
-		"contextMenus" 
+		"contextMenus"
 	],
 	"manifest_version": 2
 }
