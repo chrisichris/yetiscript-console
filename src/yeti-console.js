@@ -45,6 +45,7 @@ function setJSCode(){
 }
 
 function update(){
+	compiled.session.setValue("");
 	$.ajax({
 		type:"POST",
 		url:"http://localhost:9090/compile",
