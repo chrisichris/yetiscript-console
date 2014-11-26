@@ -19,15 +19,6 @@ editor.session.setUseSoftTabs(true);
 editor.session.setTabSize(2);
 editor.setShowPrintMargin(false);
 
-// DevTools page -- devtools.js
-// Create a connection to the background page
-var backgroundPageConnection = chrome.runtime.connect({
-    name: "devtools-page"
-});
-
-backgroundPageConnection.onMessage.addListener(function (message) {
-    // Handle responses from the background page, if any
-});
 
 function evalIt(code){
 	code = code || compiled.session.getValue();
@@ -40,14 +31,8 @@ function evalIt(code){
                console._log(result);
            }
       );
-	
-	/*
-	chrome.runtime.sendMessage({
-		tabId: chrome.devtools.inspectedWindow.tabId,
-		code: code
-	});
-	*/
 }
+
 var showModules = false;
 var modulesSrc = "";
 var exprSrc = "";
@@ -81,7 +66,7 @@ function update(){
 	.fail(function(jqXHR,textStatus, errorThrown){
 		var txt = jqXHR.responseText;
 		if(jqXHR.status != 400)
-			txt = "Server-Error: "+txt;
+			txt = "Server-Error: "+jqXHR.statusText;
 		else
 			txt = "Compile-Error: "+txt;
 		$("#cc-error").html(txt);
@@ -89,22 +74,6 @@ function update(){
 	});
     //localStorage.setItem("state" + tabId, editor.session.getValue());
 }
-/*
-schedule = function(fn, timeout) {
-    if (fn.$timer) return;
-    fn.$timer = setTimeout(function() {fn.$timer = null; fn()}, timeout || 10);
-}
-
-editor.on("change", function(e){
-    schedule(update, 1000);
-});
-
-var compileOptions = {
-    name: "compileIt",
-    exec: compileIt,
-    bindKey: "Ctrl-Return|Command-Return|Shift-Return"
-};
-*/
 
 var compileOptions = {
     name: "update",
@@ -120,8 +89,5 @@ $("#show-module").click(function(){
 	showModules = !showModules;
 	setJSCode();
 });
-	
-//document.getElementById('show-module').addEventListener('click'
-//document.getElementById('runcc').addEventListener('click', update());
-//editor.session.setValue(localStorage.getItem("state" + tabId));
-//schedule(function(){ editor.focus() }, 20);
+
+editor.focus();
